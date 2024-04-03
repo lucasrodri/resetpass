@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-center h-100">
+    <div class="card" style="width: 18rem;">
+        {{!-- Colocar a logo da giga --}}
+        <div class="card-header logo-background">
+            <img src="/images/logo-giga.png" class="card-img-top" alt="GigaCandanga">
+        </div>
+        <div class="card-body">
+            <form action="/auth/login" method="POST">
+                <div class="mb-3">
+                    <label for="user-reg" class="form-label">Usuário</label>
+                    <input type="text" class="form-control" id="user-reg" name="user">
+                </div>
+                <div class="mb-3">
+                    <label for="password-reg" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password-reg" name="password">
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-login">Entrar</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-center">
+                Use sua conta no LDAP
+            </div>
+        </div>
+    </div>
+</div>
