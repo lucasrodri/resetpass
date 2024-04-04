@@ -12,6 +12,9 @@ const path = require("path")
 const app = express();
 
 app.engine('hbs', engine({
+    helpers: {
+        eq: (v1, v2) => v1 === v2
+    },
     extname: 'hbs',
     defaultLayout: 'main', 
     defaultLayout: 'main', // Definindo o layout padrão
@@ -33,6 +36,10 @@ const usersRouter = require('./routes/users');
 // Usar as rotas importadas
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+// Rotas de erro devem ser adicionadas após todas as outras rotas
+const errorRoutes = require('./routes/errorRoutes');
+app.use(errorRoutes);
 
 app.listen(PORT, () => { // Alterado para usar a variável PORT
     console.log(`Server started on port ${PORT}`);

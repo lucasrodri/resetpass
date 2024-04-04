@@ -1,0 +1,10 @@
+{{!-- 500 --}}
+<div class="container mt-4">
+    <div class="mt-4 p-5">
+        <h1>500 Erro Interno do Servidor</h1>
+        <p>Desculpe, ocorreu um erro interno no servidor.</p>
+        {{#if error}}
+            <p>Detalhes do erro: {{error.message}}</p>
+        {{/if}}
+    </div>
+</div>

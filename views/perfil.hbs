@@ -1,0 +1,63 @@
+{{!-- Perfil --}}
+<div class="container mt-4">
+    <div class="mt-3 mb-3">
+        <h2>Perfil do Usuário</h4>
+            <h6>Veja abaixo os detalhes do seu Perfil.</h6>
+    </div>
+    <hr>
+    <div class="row my-2 mt-5">
+        <div class="col-lg-12">
+            <h5><strong>Dados gerais do Usuário</strong></h5>
+            <div class="form-group row mt-4">
+                <label class="col-lg-3 col-form-label form-control-label">Username:</label>
+                <div class="col-lg-9">
+                    <ul class="list-group">
+                        <li class="list-group-item">{{username}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label class="col-lg-3 col-form-label form-control-label">Nome:</label>
+                <div class="col-lg-9">
+                    <ul class="list-group">
+                        <li class="list-group-item">{{nome}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label class="col-lg-3 col-form-label form-control-label">Sobrenome:</label>
+                <div class="col-lg-9">
+                    <ul class="list-group">
+                        <li class="list-group-item">{{sobrenome}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label class="col-lg-3 col-form-label form-control-label">Email:</label>
+                <div class="col-lg-9">
+                    <ul class="list-group">
+                        <li class="list-group-item">{{email}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label class="col-lg-3 col-form-label form-control-label">UID Number:</label>
+                <div class="col-lg-9">
+                    <ul class="list-group">
+                        <li class="list-group-item">{{uidNumber}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label class="col-lg-3 col-form-label form-control-label">Grupos:</label>
+                <div class="col-lg-9">
+                    <ul class="list-group">
+                        {{#each memberOf}}
+                            <li class="list-group-item">{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
