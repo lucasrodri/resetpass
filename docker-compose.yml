@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  
+  resetpass:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/usr/src/app
+    networks:
+      - resetpassnetwork
+
+  ldap:
+    image: osixia/openldap:latest
+    environment:
+      - LDAP_ORGANISATION=GigaCandanga
+      - LDAP_DOMAIN=gigacandanga.net.br
+      - LDAP_ADMIN_PASSWORD=admin
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes:
+      - /tmp/ldap:/var/lib/ldap
+      - /tmp/ldap-slapd.d:/etc/ldap/slapd.d
+    networks:
+      - resetpassnetwork
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap
+    ports:
+      - "6443:443"
+    networks:
+      - resetpassnetwork
+    depends_on:
+      - ldap
+    
+networks: 
+  resetpassnetwork:
+    driver: bridge

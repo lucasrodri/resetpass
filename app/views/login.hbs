@@ -5,7 +5,12 @@
             <img src="/images/logo-giga.png" class="card-img-top" alt="GigaCandanga">
         </div>
         <div class="card-body">
-            <form action="/auth/login" method="POST">
+            {{#if loginError}}
+            <div class="alert alert-danger" role="alert">
+                {{loginError}}
+            </div>
+            {{/if}}
+            <form action="/users/login" method="POST">
                 <div class="mb-3">
                     <label for="user-reg" class="form-label">Usuário</label>
                     <input type="text" class="form-control" id="user-reg" name="user">

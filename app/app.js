@@ -1,22 +1,31 @@
 const express = require('express');
-const { engine } = require('express-handlebars'); 
+const { engine } = require('express-handlebars');
 const dotenv = require('dotenv')
-const ldap = require('ldapjs');
+const session = require('express-session');
 
 const PORT = process.env.PORT || 5000;
 
-dotenv.config({ path: './.env'})
+dotenv.config({ path: './.env' })
 
 const path = require("path")
 
 const app = express();
+
+// Middleware para analisar application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: 'R6HfYwd5LaZZfuQPnDnk5Bx3YLZkGbaWQGDQJ2D3',
+    resave: false,
+    saveUninitialized: false,
+}));
 
 app.engine('hbs', engine({
     helpers: {
         eq: (v1, v2) => v1 === v2
     },
     extname: 'hbs',
-    defaultLayout: 'main', 
+    defaultLayout: 'main',
     defaultLayout: 'main', // Definindo o layout padrão
     layoutsDir: path.join(__dirname, 'views/layouts'), // O diretório dos layouts
     partialsDir: path.join(__dirname, 'views/partials'), // Alterado para 'partials'
