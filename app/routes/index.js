@@ -36,7 +36,8 @@ router.post('/alterarSenha', checkAuthentication, async (req, res) => {
             const change = new ldap.Change({
                 operation: 'replace',
                 modification: {
-                    userPassword: newPassword // Aqui você especifica o novo valor da senha
+                    type: 'userPassword',
+                    values: [newPassword]
                 }
             });
             let ldapFilter = process.env.LDAP_SEARCH_FILTER.replace('%s', username);
