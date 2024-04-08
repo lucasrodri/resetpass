@@ -101,5 +101,6 @@ async function getUserData(username) {
 module.exports = {
     client,
     bindLDAP,
+    bindLDAPClient,
     getUserData
 };

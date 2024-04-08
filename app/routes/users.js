@@ -16,7 +16,7 @@ router.post('/login', async (req, res) => {
         username: username
       };
       // Autenticação bem-sucedida, redireciona para a rota /perfil
-      res.redirect('/users/perfil');
+      res.redirect('/');
     } else {
       // Falha na autenticação, renderiza a página de login com um erro
       console.log(`Falha na autenticação do usuário ${username}.`);

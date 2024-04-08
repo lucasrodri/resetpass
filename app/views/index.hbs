@@ -4,6 +4,16 @@
         <h1 class="mb-4">
             Alterar Senha
         </h1>
+        {{#if passwordError}}
+            <div class="alert alert-danger" role="alert">
+                {{passwordError}}
+            </div>
+        {{/if}}
+        {{#if passwordSuccess}}
+            <div class="alert alert-success" role="alert">
+                {{passwordSuccess}}
+            </div>
+        {{/if}}
         <form id="changePasswordForm" class="alterar-senha" action="/alterarSenha" method="POST" novalidate>
             <div class="mb-3">
                 <label for="current-password" class="form-label">Senha Atual</label>
