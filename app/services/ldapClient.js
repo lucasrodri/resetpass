@@ -28,7 +28,7 @@ async function bindLDAP(username, password) {
 
         console.log('Tentando autenticar usuário:', dn);
 
-        client.bind(dn, password, (err) => {
+        client.bind(dn, password, async (err) => {
             if (err) {
                 // Falha na autenticação
                 console.error('Erro de autenticação LDAP: Credenciais inválidas.');
@@ -46,10 +46,11 @@ async function bindLDAP(username, password) {
 // Função para o admin autenticar no LDAP
 async function bindLDAPClient() {
     return new Promise((resolve, reject) => {
-        client.bind(process.env.LDAP_BIND_DN, process.env.LDAP_BIND_PASSWORD, (err) => {
+        client.bind('cn=admin,dc=gigacandanga,dc=net,dc=br', 'admin', async (err) => {
             if (err) {
                 reject(new Error(`Falha ao autenticar com LDAP: ${err.message}`));
             } else {
+                console.log('LDAP autenticado com o usuário de serviço.');
                 resolve();
             }
         });
@@ -64,51 +65,38 @@ async function getUserData(username) {
 
         // Agora, continuamos com a busca
         return new Promise((resolve, reject) => {
-            const ldapFilter = process.env.LDAP_SEARCH_FILTER.replace('%s', username);
+            let ldapFilter = process.env.LDAP_SEARCH_FILTER.replace('%s', username);
+            console.log('Buscando dados do usuário:', ldapFilter);
             const opts = {
                 filter: ldapFilter,
                 scope: 'sub',
                 attributes: ['cn', 'sn', 'mail', 'uidNumber', 'memberOf']
             };
 
-            client.search(process.env.LDAP_BASE_DN, opts, (err, search) => {
+            client.search(process.env.LDAP_BASE_DN, opts, (err, res) => {
                 if (err) {
                     console.error('Erro ao buscar dados do usuário:', err);
                     return reject(err);
-                }
-
+                } 
                 let userFound = false;
 
-                search.on('searchEntry', (entry) => {
-                    console.log('Entrada encontrada:', entry.object);
+                res.on('searchEntry', (entry) => {
                     userFound = true;
-                    resolve(entry.object);
+                    console.log('Usuário encontrado!');
+                    resolve(entry.pojo);
                 });
 
-                search.on('end', (result) => {
-                    client.unbind((err) => {
-                        if (err) {
-                            console.error('Erro ao desvincular o cliente LDAP após a busca:', err);
-                        }
-                    });
-                    if (!userFound) {
-                        console.log('Nenhuma entrada encontrada para o usuário:', username);
-                        reject(new Error('Usuário não encontrado.'));
-                    }
-                });
-
-                search.on('error', (err) => {
+                res.on('error', (err) => {
                     console.error('Erro ao buscar dados do usuário:', err);
                     reject(err);
                 });
             });
         });
+
     } catch (error) {
         throw error;
     }
 }
-
-
 
 module.exports = {
     client,

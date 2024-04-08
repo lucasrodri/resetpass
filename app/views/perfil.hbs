@@ -12,7 +12,7 @@
                 <label class="col-lg-3 col-form-label form-control-label">Username:</label>
                 <div class="col-lg-9">
                     <ul class="list-group">
-                        <li class="list-group-item">{{username}}</li>
+                        <li class="list-group-item">{{userData.username}}</li>
                     </ul>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                 <label class="col-lg-3 col-form-label form-control-label">Nome:</label>
                 <div class="col-lg-9">
                     <ul class="list-group">
-                        <li class="list-group-item">{{nome}}</li>
+                        <li class="list-group-item">{{userData.nome}}</li>
                     </ul>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <label class="col-lg-3 col-form-label form-control-label">Sobrenome:</label>
                 <div class="col-lg-9">
                     <ul class="list-group">
-                        <li class="list-group-item">{{sobrenome}}</li>
+                        <li class="list-group-item">{{userData.sobrenome}}</li>
                     </ul>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <label class="col-lg-3 col-form-label form-control-label">Email:</label>
                 <div class="col-lg-9">
                     <ul class="list-group">
-                        <li class="list-group-item">{{email}}</li>
+                        <li class="list-group-item">{{userData.email}}</li>
                     </ul>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <label class="col-lg-3 col-form-label form-control-label">UID Number:</label>
                 <div class="col-lg-9">
                     <ul class="list-group">
-                        <li class="list-group-item">{{uidNumber}}</li>
+                        <li class="list-group-item">{{userData.uidNumber}}</li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <label class="col-lg-3 col-form-label form-control-label">Grupos:</label>
                 <div class="col-lg-9">
                     <ul class="list-group">
-                        {{#each memberOf}}
+                        {{#each userData.memberOf}}
                             <li class="list-group-item">{{this}}</li>
                         {{/each}}
                     </ul>

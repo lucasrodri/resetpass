@@ -45,22 +45,23 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/perfil', checkAuthentication, async (req, res) => {
-  const username = req.session.user.username;
-  /*
-  const userData = {
-    nome: 'Nome do Usuário',
-    sobrenome: 'Sobrenome do Usuário',
-    email: 'email@exemplo.com',
-    uidNumber: '123456',
-    username: req.session.user.username,
-    memberOf: ['Grupo1', 'Grupo2', 'Grupo3'] // Exemplo de grupos
-  };
-  */
-
+  const username = req.session.user.username;  
   try {
-    const userData = await getUserData(username);
-    console.log('Dados do usuário:', userData);
-    res.render('perfil', { userData }); // Certifique-se que o objeto passado aqui esteja correto.
+    const rawData = await getUserData(username);
+    let transformedData = {};
+    rawData.attributes.forEach(attribute => {
+      transformedData[attribute.type] = attribute.values;
+    });
+    console.log('Dados do usuário:', transformedData);
+    const userData = {
+      nome: transformedData.cn,
+      sobrenome: transformedData.sn,
+      email: transformedData.mail,
+      uidNumber: transformedData.uidNumber,
+      username: req.session.user.username,
+      memberOf: ['Grupo1', 'Grupo2', 'Grupo3'] // Exemplo de grupos
+    };
+    res.render('perfil', { userData, username: userData.username });
   } catch (error) {
     console.error('Erro ao obter dados do usuário:', error);
     res.status(500).send('Erro interno do servidor');
