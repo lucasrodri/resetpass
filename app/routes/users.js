@@ -59,7 +59,8 @@ router.get('/perfil', checkAuthentication, async (req, res) => {
       email: transformedData.mail,
       uidNumber: transformedData.uidNumber,
       username: req.session.user.username,
-      memberOf: ['Grupo1', 'Grupo2', 'Grupo3'] // Exemplo de grupos
+      memberOf: transformedData.memberOf
+      //memberOf: ['Grupo1', 'Grupo2', 'Grupo3'] // Exemplo de grupos
     };
     res.render('perfil', { userData, username: userData.username });
   } catch (error) {
