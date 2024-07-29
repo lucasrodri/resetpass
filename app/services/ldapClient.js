@@ -46,7 +46,9 @@ async function bindLDAP(username, password) {
 // Função para o admin autenticar no LDAP
 async function bindLDAPClient() {
     return new Promise((resolve, reject) => {
-        client.bind('cn=admin,dc=gigacandanga,dc=net,dc=br', 'admin', async (err) => {
+        console.log('DN:', process.env.LDAP_BIND_DN);
+        console.log('Password:', process.env.LDAP_BIND_PASSWORD);
+        client.bind(process.env.LDAP_BIND_DN, process.env.LDAP_BIND_PASSWORD, (err) => {
             if (err) {
                 reject(new Error(`Falha ao autenticar com LDAP: ${err.message}`));
             } else {
@@ -56,6 +58,11 @@ async function bindLDAPClient() {
         });
     });
 }
+
+// Chame a função bindLDAPClient para testar a conexão
+bindLDAPClient()
+    .then(() => console.log('Autenticação bem-sucedida.'))
+    .catch((err) => console.error('Erro de autenticação:', err));
 
 // Função para buscar dados do usuário
 async function getUserData(username) {
