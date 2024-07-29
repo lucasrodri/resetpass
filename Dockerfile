@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 # Adicionando argumento NODE_ENV com padrão 'production'
 ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
 # Copiando arquivos package.json e package-lock.json
 COPY ./app/package*.json ./

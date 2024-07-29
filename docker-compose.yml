@@ -2,17 +2,29 @@ version: '3'
 
 services:
   
-  resetpass:
+  resetpass-development:
     build: 
       context: .
       args:
         - NODE_ENV=development
     env_file:
-      - .env
+      - .env.development
     ports:
-      - "5000:5000"
+      - "5001:5000"
     volumes:
       - ./app:/usr/src/app
+    networks:
+      - resetpassnetwork
+
+  resetpass-production:
+    build: 
+      context: .
+      args:
+        - NODE_ENV=production
+    env_file:
+      - .env.production
+    ports:
+      - "5000:5000"
     networks:
       - resetpassnetwork
 
